@@ -1,25 +1,39 @@
-import logo from './logo.svg';
+import React from "react";
 import './App.css';
+import CountryList from './country-list'
+import {Provider} from "react-redux";
+import { createStore, useDispatch } from 'redux';
+
+const initialState = {
+  countryList:[]
+}
+function reducer(state,action){
+  console.log(action);
+  switch (action.type){
+    case 'SET_COUNTRY_LIST': {
+      console.log('Voy actualizar la lsita de paises')
+      return {...state, countryList: action.payload}
+    }
+    default:{
+ return state
+    }
+  }
+}
+
+const store = createStore(reducer,initialState)
 
 function App() {
   return (
+      <Provider store={store}>
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <CountryList/>
     </div>
+      </Provider>
   );
 }
 
 export default App;
+
+
+
+
